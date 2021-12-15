@@ -1,8 +1,9 @@
-#' Generate simulation data (Categorial data)
+#' Generate simulation data (Complete data with group predictors)
 #'
-#' This function helps you quickly generate simulation data based on logistic model.
+#' This function helps you quickly generate simulation data based on transformation model.
 #' You just need to input the sample and dimension of the data
 #' you want to generate and the covariance parameter pho.
+#' This simulated example comes from Example 2 introduced by Li et al.(2012)
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
 #' number of rows in the dataset to be simulated, because it is assumed that each
@@ -20,24 +21,30 @@
 #' @return the list of your simulation data
 #' @import MASS
 #' @importFrom MASS mvrnorm
-#' @importFrom stats rbinom
+#' @importFrom stats rnorm
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
 #' @examples
 #' n=100;
 #' p=200;
 #' pho=0.5;
-#' data=gendata3(n,p,pho)
-gendata3 <- function(n,p,rho)# n sample size; p dimension size.
+#' data=GendataGP(n,p,pho)
+#'
+#' @references
+#'
+#' Li, R., W. Zhong, and L. Zhu (2012). Feature screening via distance correlation learning. Journal of the American Statistical Association 107(499), 1129–1139.
+GendataGP <- function(n,p,rho)# n sample size; p dimension size.
 {
   sig=matrix(0,p,p);
   sig=rho^abs(row(sig)-col(sig));
   diag(sig)<-rep(1,p);
   X=mvrnorm(n,rep(0,p),sig);
-  b=c(4,4,4,-6*sqrt(2),4/3)
-  feta=X[,1:5]%*%b;
-  fprob=exp(feta)/(1+exp(feta))
-  Y=rbinom(n,1,fprob)
+  q1=quantile(X[,3],0.25)
+  q2=quantile(X[,3],0.5)
+  q3=quantile(X[,3],0.75)
+  Y=2*X[,1]+2*X[,2]+2*X[,4]+2*X[,5]
+  +1*as.numeric(X[,3]<q1)+2*as.numeric(X[,3]>q1 & X[,3]<q2 )
+  +3*as.numeric(X[,3]>q3)+rnorm(n)
   return(list(X=X,Y=Y));
 }
 

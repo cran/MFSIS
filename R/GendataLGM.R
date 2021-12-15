@@ -1,6 +1,6 @@
-#' Generate simulation data (Discrete response data)
+#' Generate simulation data (Binary category data based on logistic model)
 #'
-#' This function helps you quickly generate simulation data based on linear model.
+#' This function helps you quickly generate simulation data based on logistic model.
 #' You just need to input the sample and dimension of the data
 #' you want to generate and the covariance parameter pho.
 #'
@@ -16,27 +16,30 @@
 #' used as an example of a parsimonious but nontrivial covariance structure. If
 #' rho is left at the default of zero, the X covariates will be independent and the
 #' simulation will run faster.
+#' @param beta A vector with length of n, which are the coefficients that you want to generate
+#' about Linear model. The default is beta=(1,1,1,1,1,0,...,0)^T;
 #'
 #' @return the list of your simulation data
 #' @import MASS
 #' @importFrom MASS mvrnorm
-#' @importFrom stats runif
+#' @importFrom stats rbinom
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
 #' @examples
 #' n=100;
 #' p=200;
 #' pho=0.5;
-#' data=gendata4(n,p,pho)
-gendata4 <- function(n,p,rho)# n sample size; p dimension size.
+#' data=GendataLGM(n,p,pho)
+GendataLGM <- function(n,p,rho,
+      beta=c(rep(1,5),rep(0,p-5)))# n sample size; p dimension size.
 {
   sig=matrix(0,p,p);
   sig=rho^abs(row(sig)-col(sig));
   diag(sig)<-rep(1,p);
   X=mvrnorm(n,rep(0,p),sig);
-  b=c(0.6,0.6,0.6,0.6,-0.9*sqrt(2))
-  myrates=abs(X[,1:5]%*%b+rnorm(n))
-  Y=as.integer(runif(n,myrates,myrates+5))
+  feta=X%*%beta;
+  fprob=exp(feta)/(1+exp(feta))
+  Y=rbinom(n,1,fprob)
   return(list(X=X,Y=Y));
 }
 

@@ -23,7 +23,7 @@ The Kolmogorov filter for variable screening in high-dimensional binary classifi
 n=100;
 p=200;
 pho=0.5;
-data=gendata3(n,p,pho)
+data=GendataLGM(n,p,pho)
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)

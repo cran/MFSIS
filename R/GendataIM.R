@@ -1,8 +1,9 @@
-#' Generate simulation data (Complete data)
+#' Generate simulation data (Complete data for intersection variables)
 #'
-#' This function helps you quickly generate simulation data based on linear model.
+#' This function helps you quickly generate simulation data based on transformation model.
 #' You just need to input the sample and dimension of the data
 #' you want to generate and the covariance parameter pho.
+#' This simulated example comes from Section 4.2 introduced by Pan et al.(2019)
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
 #' number of rows in the dataset to be simulated, because it is assumed that each
@@ -16,6 +17,7 @@
 #' used as an example of a parsimonious but nontrivial covariance structure. If
 #' rho is left at the default of zero, the X covariates will be independent and the
 #' simulation will run faster.
+#' @param order The number of interactive variables and the default is 2.
 #'
 #' @return the list of your simulation data
 #' @import MASS
@@ -27,15 +29,31 @@
 #' n=100;
 #' p=200;
 #' pho=0.5;
-#' data=gendata1(n,p,pho)
-gendata1 <- function(n,p,rho)# n sample size; p dimension size.
-  {
+#' data=GendataIM(n,p,pho)
+#'
+#' @references
+#'
+#' Pan, W., X. Wang, W. Xiao, and H. Zhu (2019). A generic sure independence screening procedure. Journal of the American Statistical Association 114(526), 928–937.
+GendataIM <- function(n,p,rho,
+        order=2)# n sample size; p dimension size.
+{
   sig=matrix(0,p,p);
   sig=rho^abs(row(sig)-col(sig));
   diag(sig)<-rep(1,p);
   X=mvrnorm(n,rep(0,p),sig);
-  b=c(1,1,1,1,1)
-  Y=X[,1:5]%*%b+rnorm(n)
+  if (order<2 | order>5){
+    stop("The parameter order can be implemented between 2 to 5")
+  }
+  if (order==2){
+    Y=2*X[,1]*X[,2]+2*X[,3]+2*X[,4]+2*X[,5]+rnorm(n)
+  }else if (order==3){
+    Y=2*X[,1]*X[,2]*X[,3]+2*X[,4]+2*X[,5]+rnorm(n)
+  }else if (order==4){
+    Y=2*X[,1]*X[,2]*X[,3]*X[,4]+2*X[,5]+rnorm(n)
+  }
+  else if (order==5){
+    Y=2*X[,1]*X[,2]*X[,3]*X[,4]*X[,5]+rnorm(n)
+  }
   return(list(X=X,Y=Y));
 }
 

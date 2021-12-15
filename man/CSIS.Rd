@@ -33,7 +33,7 @@ consistency properties under weak assumptions.
 n=100;
 p=200;
 pho=0.5;
-data=gendata1(n,p,pho)
+data=GendataLM(n,p,pho)
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)
@@ -46,7 +46,7 @@ library(survival)
 n=100;
 p=200;
 pho=0.5;
-data=gendata2(n,p,pho)
+data=GendataAFT(n,p,pho)
 data=cbind(data[[1]],data[[2]],data[[3]])
 colnames(data)[ncol(data)]=c("status");
 colnames(data)[(ncol(data)-1)]=c("time");

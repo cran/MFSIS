@@ -6,4 +6,7 @@ First release targeting CRAN
 
 Revised some simulation functions and update some parameters
 
+# MFSIS 0.1.2
+
+Add more simulation functions and update the overall code architecture and make this package easy to use
 

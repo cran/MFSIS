@@ -4,7 +4,13 @@
 \alias{GendataLDA}
 \title{Generate simulation data (Categorial based on linear discriminant analysis model)}
 \usage{
-GendataLDA(n, p, R = 2, error = "norm")
+GendataLDA(
+  n,
+  p,
+  R = 3,
+  error = c("gaussian", "t", "cauchy"),
+  style = c("balanced", "unbalanced")
+)
 }
 \arguments{
 \item{n}{Number of subjects in the dataset to be simulated. It will also equal to the
@@ -16,9 +22,11 @@ These covariates will be the features screened by model-free procedures.}
 
 \item{R}{A positive integer, number of outcome categories for multinomial (categorical) outcome Y.}
 
-\item{error}{The distribution of error term, you can choose "norm" to generate a normal
+\item{error}{The distribution of error term, you can choose "gaussian" to generate a normal
 distribution of error or you choose "t" to generate a t distribution of error with degree=2.
-The default is normal distribution.}
+"cauchy" is represent the error term with cauchy distribution.}
+
+\item{style}{The balance among categories in categorial data .}
 }
 \value{
 the list of your simulation data
@@ -32,7 +40,7 @@ The simulated dataset has p numerical X-predictors and a categorical Y-response.
 n=100;
 p=200;
 R=3;
-data=GendataLDA(n,p,R)
+data=GendataLDA(n,p,R,error="gaussian",style="balanced")
 }
 \references{
 Cui, H., Li, R., & Zhong, W. (2015). Model-free feature screening for ultrahigh dimensional discriminant analysis. Journal of the American Statistical Association, 110(510), 630-641.

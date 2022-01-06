@@ -30,8 +30,8 @@
 #' @examples
 #' n=100;
 #' p=200;
-#' pho=0.5;
-#' data=GendataPM(n,p,pho)
+#' rho=0.5;
+#' data=GendataPM(n,p,rho)
 #'
 #' @references
 #'

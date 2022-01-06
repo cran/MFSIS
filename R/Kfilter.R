@@ -7,8 +7,6 @@
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.
 #' @param Y The response vector of dimension n * 1.
 #' @param nsis Number of predictors recruited by SIS. The default is n/log(n).
-#' @param response.type The type of response, you can choose "continuous", "discrete" or "categorical". The default is continuous.
-#' @param method The method you want to employ in screening procedure, you can choose "single" or "fused".
 #'
 #' @return the labels of first nsis largest active set of all predictors
 #' @export
@@ -17,8 +15,8 @@
 #'
 #'n=100;
 #'p=200;
-#'pho=0.5;
-#'data=GendataLM(n,p,pho)
+#'rho=0.5;
+#'data=GendataLM(n,p,rho,error="gaussian")
 #'data=cbind(data[[1]],data[[2]])
 #'colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #'data=as.matrix(data)
@@ -31,7 +29,7 @@
 #' Mai, Q., & Zou, H. (2013). The Kolmogorov filter for variable screening in high-dimensional binary classification. Biometrika, 100(1), 229-234.
 #'
 #' Mai, Q., & Zou, H. (2015). The fused Kolmogorov filter: A nonparametric model-free screening method. The Annals of Statistics, 43(4), 1471-1497.
-Kfilter<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1]),response.type="continuous",method="fused"){
+Kfilter<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
   if (dim(X)[1]!=length(Y)) {
     stop("X and Y should have same number of rows!")
   }
@@ -47,24 +45,16 @@ Kfilter<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1]),response.type="continuous"
   N=NULL;
   nslices=NULL;
   slicing.scheme=NULL;
-  method=match.arg(arg=method,choices=c("fused","single"))
-  response.type=match.arg(arg=response.type,choices=c("continuous","discrete","categorical"))
 
-  if(!is.null(slicing.scheme)){
-    if(method=="fused")warning("A slicing scheme is given. Using a single Kolmogorov filter.")
+  if(length(table(Y))<=10){
+    Y<-factor(Y)
     obj<-Kfilter_single(X=X,Y=Y,nsis)
-  }else{
-    if(response.type=="categorical"){
-      Y<-factor(Y)
-      obj<-Kfilter_single(X=X,Y=Y,nsis)
-    }
-    if(response.type=="continuous"|response.type=="discrete"){
+    }else{
       n<-nrow(X)
       if(is.null(N)){N<-ceiling(log(n))-2}
       if(is.null(nslices)){nslices<-3:(N+2)}
       obj<-Kfilter_fused(X=X,Y=Y,nsis)
     }
-  }
   return (obj)
 }
 
@@ -73,7 +63,7 @@ Kfilter<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1]),response.type="continuous"
 #'
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.
 #' @param Y The response vector of dimension n * 1.
-#' @param nsis Number of predictors recruited by SIS. The default is n/log(n).
+#' @param nsis Number of predictors recruited by Kfilter_single. The default is n/log(n).
 #'
 #' @return the labels of first nsis largest active set of all predictors
 #' @importFrom stats quantile
@@ -83,8 +73,8 @@ Kfilter<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1]),response.type="continuous"
 #' @examples
 #' n=100;
 #' p=200;
-#' pho=0.5;
-#' data=GendataLGM(n,p,pho)
+#' rho=0.5;
+#' data=GendataLGM(n,p,rho)
 #' data=cbind(data[[1]],data[[2]])
 #' colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #' data=as.matrix(data)
@@ -111,7 +101,7 @@ Kfilter_single<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
     }
   }
   ks.stat.max0<-apply(ks.stat,1,max)
-  k.rank<-rank(-ks.stat.max0,ties.method="max")
+  k.rank<-rank(-ks.stat.max0,ties.method="first")
   return (k.rank[1:nsis])
 }
 
@@ -120,7 +110,7 @@ Kfilter_single<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
 #'
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.
 #' @param Y The response vector of dimension n * 1.
-#' @param nsis Number of predictors recruited by SIS. The default is n/log(n).
+#' @param nsis Number of predictors recruited by Kfilter_fused. The default is n/log(n).
 #'
 #' @return the labels of first nsis largest active set of all predictors
 #' @importFrom stats quantile
@@ -132,7 +122,7 @@ Kfilter_single<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
 #' n=100;
 #' p=200;
 #' R=5;
-#' data=GendataLDA(n,p,R)
+#' data=GendataLDA(n,p,R,error="gaussian",style="balanced")
 #' data=cbind(data[[1]],data[[2]])
 #' colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #' data=as.matrix(data)
@@ -143,8 +133,8 @@ Kfilter_single<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
 #' ##Scenario 2  generate continuous response data
 #' n=100;
 #' p=200;
-#' pho=0.5;
-#' data=GendataLM(n,p,pho)
+#' rho=0.5;
+#' data=GendataLM(n,p,rho,error="gaussian")
 #' data=cbind(data[[1]],data[[2]])
 #' colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #' data=as.matrix(data)
@@ -184,7 +174,7 @@ Kfilter_fused<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
     ks.stat.single[K-2,]<-ks.stat.max0
     ks.stat.max<-ks.stat.max+ks.stat.max0
   }
-  k.rank=rank(-ks.stat.max,ties.method="max")
+  k.rank=rank(-ks.stat.max,ties.method="first")
   return (k.rank[1:nsis])
 }
 

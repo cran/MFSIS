@@ -4,13 +4,7 @@
 \alias{Kfilter}
 \title{The Kolmogorov filter for variable screening}
 \usage{
-Kfilter(
-  X,
-  Y,
-  nsis = (dim(X)[1])/log(dim(X)[1]),
-  response.type = "continuous",
-  method = "fused"
-)
+Kfilter(X, Y, nsis = (dim(X)[1])/log(dim(X)[1]))
 }
 \arguments{
 \item{X}{The design matrix of dimensions n * p. Each row is an observation vector.}
@@ -18,10 +12,6 @@ Kfilter(
 \item{Y}{The response vector of dimension n * 1.}
 
 \item{nsis}{Number of predictors recruited by SIS. The default is n/log(n).}
-
-\item{response.type}{The type of response, you can choose "continuous", "discrete" or "categorical". The default is continuous.}
-
-\item{method}{The method you want to employ in screening procedure, you can choose "single" or "fused".}
 }
 \value{
 the labels of first nsis largest active set of all predictors
@@ -35,8 +25,8 @@ discrete and categorical variables.
 
 n=100;
 p=200;
-pho=0.5;
-data=GendataLM(n,p,pho)
+rho=0.5;
+data=GendataLM(n,p,rho,error="gaussian")
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)

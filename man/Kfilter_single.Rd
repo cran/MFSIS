@@ -11,7 +11,7 @@ Kfilter_single(X, Y, nsis = (dim(X)[1])/log(dim(X)[1]))
 
 \item{Y}{The response vector of dimension n * 1.}
 
-\item{nsis}{Number of predictors recruited by SIS. The default is n/log(n).}
+\item{nsis}{Number of predictors recruited by Kfilter_single. The default is n/log(n).}
 }
 \value{
 the labels of first nsis largest active set of all predictors
@@ -22,8 +22,8 @@ The Kolmogorov filter for variable screening in high-dimensional binary classifi
 \examples{
 n=100;
 p=200;
-pho=0.5;
-data=GendataLGM(n,p,pho)
+rho=0.5;
+data=GendataLGM(n,p,rho)
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)

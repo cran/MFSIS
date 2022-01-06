@@ -11,7 +11,7 @@ Kfilter_fused(X, Y, nsis = (dim(X)[1])/log(dim(X)[1]))
 
 \item{Y}{The response vector of dimension n * 1.}
 
-\item{nsis}{Number of predictors recruited by SIS. The default is n/log(n).}
+\item{nsis}{Number of predictors recruited by Kfilter_fused. The default is n/log(n).}
 }
 \value{
 the labels of first nsis largest active set of all predictors
@@ -24,7 +24,7 @@ The fused kolmogorov filter: a nonparametric model-free screening method
 n=100;
 p=200;
 R=5;
-data=GendataLDA(n,p,R)
+data=GendataLDA(n,p,R,error="gaussian",style="balanced")
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)
@@ -35,8 +35,8 @@ A1=Kfilter_fused(X,Y,n/log(n));A1
 ##Scenario 2  generate continuous response data
 n=100;
 p=200;
-pho=0.5;
-data=GendataLM(n,p,pho)
+rho=0.5;
+data=GendataLM(n,p,rho,error="gaussian")
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)

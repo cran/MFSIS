@@ -1,7 +1,7 @@
 Package: MFSIS
 Type: Package
 Title: Moder-Free Sure Independent Screening Procedures
-Version: 0.1.1
+Version: 0.1.2
 Date: 2021-12-10
 Authors@R: c(
               person("Xuewei", "Cheng", role = c("aut","cre"), email = "xwcheng@csu.edu.cn"),
@@ -20,12 +20,11 @@ Description: An implementation of popular screening methods that are commonly em
 License: GPL (>= 2)
 SystemRequirements: Python (>= 3.8.0)
 Encoding: UTF-8
-Imports: survival, MASS, Ball, reticulate, stats, pkgdown, crayon, cli,
-        dr, fs
-Suggests: knitr, randomForestSRC, SIS, glmnet, ncvreg, parallel,
-        foreach, utils
+Imports: survival, MASS, Ball, reticulate, stats, crayon, cli, dr,
+        foreach, parallel, doParallel, fs
+Suggests: knitr, randomForestSRC, SIS, glmnet, ncvreg, utils, pkgdown
 NeedsCompilation: no
 Repository: CRAN
 RoxygenNote: 7.1.2
-Packaged: 2021-12-15 01:10:01 UTC; d
-Date/Publication: 2021-12-15 07:40:17 UTC
+Packaged: 2022-01-06 11:59:02 UTC; d
+Date/Publication: 2022-01-06 12:30:06 UTC

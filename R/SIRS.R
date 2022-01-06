@@ -19,8 +19,8 @@
 #'
 #'n=100;
 #'p=200;
-#'pho=0.5;
-#'data=GendataLM(n,p,pho)
+#'rho=0.5;
+#'data=GendataLM(n,p,rho,error="gaussian")
 #'data=cbind(data[[1]],data[[2]])
 #'colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #'data=as.matrix(data)
@@ -43,7 +43,7 @@ SIRS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
     stop("The input vector or matrix cannot have NA!")
   }
   if (inherits(Y,"Surv")) {
-    stop("SIRS can not implemented with object  of Surv")
+    stop("SIRS can not implemented with object of Surv")
   }
   n=dim(X)[1]; ##sample size
   posit=order(Y,decreasing=FALSE)

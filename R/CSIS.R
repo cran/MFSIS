@@ -18,6 +18,9 @@
 #'
 #' @importFrom survival concordancefit
 #' @importFrom survival Surv
+#' @import foreach
+#' @import parallel
+#' @import doParallel
 #'
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
@@ -26,8 +29,8 @@
 #'##Scenario 1  generate complete data
 #'n=100;
 #'p=200;
-#'pho=0.5;
-#'data=GendataLM(n,p,pho)
+#'rho=0.5;
+#'data=GendataLM(n,p,rho,error="gaussian")
 #'data=cbind(data[[1]],data[[2]])
 #'colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #'data=as.matrix(data)
@@ -39,8 +42,8 @@
 #'library(survival)
 #'n=100;
 #'p=200;
-#'pho=0.5;
-#'data=GendataAFT(n,p,pho)
+#'rho=0.5;
+#'data=GendataCox(n,p,rho)
 #'data=cbind(data[[1]],data[[2]],data[[3]])
 #'colnames(data)[ncol(data)]=c("status");
 #'colnames(data)[(ncol(data)-1)]=c("time");
@@ -60,11 +63,25 @@ CSIS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
   if (TRUE%in%(is.na(X)|is.na(Y)|is.na(nsis))) {
     stop("The input vector or matrix cannot have NA!")
   }
+  n=dim(X)[1]; ##sample size
   p=dim(X)[2]; ##dimension
   B=vector(mode="numeric",length=p)
   Cindex=vector(mode="numeric",length=p)
-  for (i in 1:p){
-    Cindex[i]=concordancefit(Y,X[,i])$concordance
+  if (n*p<=2000000){
+    for (i in 1:p){
+      Cindex[i]=concordancefit(Y,X[,i])$concordance
+    }
+  }else{
+    # Real physical cores in the computer
+    cores=detectCores(logical=FALSE)
+    cl=makeCluster(cores)
+    registerDoParallel(cl,cores=cores)
+    j=NULL;
+    Cindex=foreach::foreach(j=1:p, .combine='c',
+                            .packages=c("survival")) %dopar%
+      concordancefit(Y,X[,j])$concordance
+    stopImplicitCluster()
+    stopCluster(cl)
   }
   num=which(Cindex<0.5)
   B[num]=1-Cindex[num]

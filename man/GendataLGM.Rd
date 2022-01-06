@@ -36,8 +36,8 @@ you want to generate and the covariance parameter pho.
 \examples{
 n=100;
 p=200;
-pho=0.5;
-data=GendataLGM(n,p,pho)
+rho=0.5;
+data=GendataLGM(n,p,rho)
 }
 \author{
 Xuewei Cheng \email{xwcheng@csu.edu.cn}

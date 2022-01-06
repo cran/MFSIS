@@ -19,31 +19,43 @@
 #' simulation will run faster.
 #' @param beta A vector with length of n, which are the coefficients that you want to generate
 #' about Linear model. The default is beta=(1,1,1,1,1,0,...,0)^T;
+#' @param error The distribution of error term.
 #'
 #' @return the list of your simulation data
 #' @import MASS
 #' @importFrom MASS mvrnorm
 #' @importFrom stats rnorm
+#' @importFrom stats rt
+#' @importFrom stats rcauchy
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
 #' @examples
 #' n=100;
 #' p=200;
-#' pho=0.5;
-#' data=GendataTM(n,p,pho)
+#' rho=0.5;
+#' data=GendataTM(n,p,rho,error="gaussian")
 #'
 #' @references
 #'
 #' Zhu, L.-P., L. Li, R. Li, and L.-X. Zhu (2011). Model-free feature screening for ultrahigh-dimensional data. Journal of the American Statistical Association 106(496), 1464–1475.
 GendataTM <- function(n,p,rho,
-        beta=c(rep(1,5),rep(0,p-5)))# n sample size; p dimension size.
+        beta=c(rep(1,5),rep(0,p-5)),
+        error=c("gaussian","t","cauchy"))# n sample size; p dimension size.
 {
   sig=matrix(0,p,p);
   sig=rho^abs(row(sig)-col(sig));
   diag(sig)<-rep(1,p);
   X=mvrnorm(n,rep(0,p),sig);
   myrates=exp(X%*%beta)
-  Y=myrates+rnorm(n)
+  if (error=="gaussian" | is.null(error)){
+    Y=myrates*exp(rnorm(n))
+  }else if(error=="t"){
+    Y=myrates*exp(rt(n,2))
+  }else if(error=="cauchy"){
+    Y=myrates*exp(rcauchy(n))
+  }else{
+    stop("The author has not implemented this error term yet.")
+  }
   return(list(X=X,Y=Y));
 }
 

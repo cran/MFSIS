@@ -11,49 +11,63 @@
 #' @param p Number of predictor variables (covariates) in the simulated dataset.
 #' These covariates will be the features screened by model-free procedures.
 #' @param R A positive integer, number of outcome categories for multinomial (categorical) outcome Y.
-#' @param error The distribution of error term, you can choose "norm" to generate a normal
+#' @param error The distribution of error term, you can choose "gaussian" to generate a normal
 #' distribution of error or you choose "t" to generate a t distribution of error with degree=2.
-#' The default is normal distribution.
+#' "cauchy" is represent the error term with cauchy distribution.
+#' @param style The balance among categories in categorial data .
 #'
 #' @return the list of your simulation data
 #' @importFrom stats rt
 #' @importFrom stats rnorm
+#' @importFrom stats rcauchy
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
 #' @examples
 #' n=100;
 #' p=200;
 #' R=3;
-#' data=GendataLDA(n,p,R)
+#' data=GendataLDA(n,p,R,error="gaussian",style="balanced")
 #' @references
 #'
 #' Cui, H., Li, R., & Zhong, W. (2015). Model-free feature screening for ultrahigh dimensional discriminant analysis. Journal of the American Statistical Association, 110(510), 630-641.
 GendataLDA=function(n,   # number of subjects to be generated
                   p, # number of covariates to be generated
-                  R = 2,    # number of outcome categories for multinomial (categorical) outcome Y
-                 error="norm" #The error distribution
-                 ) {
-  # Simulates multinomial Y for demonstrating MVSIS discriminant analysis.
+                  R = 3,    # number of outcome categories for multinomial (categorical) outcome Y
+                  error=c("gaussian","t","cauchy"), #The error distribution
+                  style=c("balanced","unbalanced"))
+  {# Simulates multinomial Y for demonstrating MVSIS discriminant analysis.
   #  The p columns of X are each generated as independent;  most have
   #  means of zero, but the active covariates have different means depending on the level of Y.
   mu=3; # mu = signal strength
   if ((p<30)|(p>100000)) {stop("Please select a number p of predictors between 30 and 100000.")}
-  Y<-sample(1:R,n,replace=T,prob=rep(1/R,R))
+  if (style=="balanced"){
+    Y<-sample(1:R,n,replace=T,prob=rep(1/R,R))
+  }else{
+    P=c()
+    for (r in 1:R){
+      P[r]=2*(1+(r-1)/(R-1))/(3*R)
+    }
+    Y<-sample(1:R,n,replace=T,prob=P);
+  }
   X<-matrix(0,n,p)
   for (r in 1:R) {
     ind<-(Y==r)
     A<-matrix(0,sum(ind),p)
     for(i in 1:sum(ind)){
       # That is, for each subject having Y=r...
-      if (error=="t") {
-        A[i,] <- c(seq(0,0,length=r-1),mu,seq(0, 0,length=p-r))+rt(p,2)
+      if (error=="gaussian" | is.null(error)) {
+        A[i,] <- c(seq(0,0,length=r-1),mu,seq(0, 0,length=p-r))+rnorm(p)
         # If heavyTailedCovariates = TRUE, then covariates will be generated as a mean
         # plus an independent error following a t distribution with 2 degrees of freedom.
-      } else {
-        A[i,] <- c(seq(0,0,length=r-1),mu,seq(0, 0,length=p-r))+rnorm(p)
+      } else if (error=="t"){
+        A[i,] <- c(seq(0,0,length=r-1),mu,seq(0, 0,length=p-r))+rt(p,2)
         # If heavyTailedCovariates = TRUE, then covariates will be generated as a mean
         # plus a standard normal distribution, i.e., they will be independently normally
         # distributed with variance 1.
+      } else if (error=="cauchy"){
+        A[i,] <- c(seq(0,0,length=r-1),mu,seq(0, 0,length=p-r))+rcauchy(p)
+      }else {
+        stop("The author has not implemented this error term yet.")
       }
     }
     X[ind,]<-A

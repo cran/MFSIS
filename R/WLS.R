@@ -20,8 +20,8 @@
 #'
 #'n=100;
 #'p=200;
-#'pho=0.5;
-#'data=GendataLM(n,p,pho)
+#'rho=0.5;
+#'data=GendataLM(n,p,rho,error="gaussian")
 #'data=cbind(data[[1]],data[[2]])
 #'colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #'data=as.matrix(data)
@@ -52,6 +52,11 @@ WLS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
   n <- dim(X)[1]
   p <- dim(X)[2]
   h <- nslice
+
+  ##judge whether Y is discrete
+  if (length(table(Y)<=10)){
+    Y=as.factor(Y)
+  }
 
   ## slice
   if( is.factor(Y) == 1 ){

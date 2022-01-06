@@ -4,7 +4,13 @@
 \alias{GendataLM}
 \title{Generate simulation data (Complete data based on linear models)}
 \usage{
-GendataLM(n, p, rho, beta = c(rep(1, 5), rep(0, p - 5)))
+GendataLM(
+  n,
+  p,
+  rho,
+  beta = c(rep(1, 5), rep(0, p - 5)),
+  error = c("gaussian", "t", "cauchy")
+)
 }
 \arguments{
 \item{n}{Number of subjects in the dataset to be simulated. It will also equal to the
@@ -24,6 +30,8 @@ simulation will run faster.}
 
 \item{beta}{A vector with length of n, which are the coefficients that you want to generate
 about Linear model. The default is beta=(1,1,1,1,1,0,...,0)^T;}
+
+\item{error}{The distribution of error term.}
 }
 \value{
 the list of your simulation data
@@ -36,8 +44,8 @@ you want to generate and the covariance parameter pho.
 \examples{
 n=100;
 p=200;
-pho=0.5;
-data=GendataLM(n,p,pho)
+rho=0.5;
+data=GendataLM(n,p,rho,error="gaussian")
 }
 \author{
 Xuewei Cheng \email{xwcheng@csu.edu.cn}

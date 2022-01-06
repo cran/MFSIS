@@ -32,8 +32,8 @@ consistency properties under weak assumptions.
 ##Scenario 1  generate complete data
 n=100;
 p=200;
-pho=0.5;
-data=GendataLM(n,p,pho)
+rho=0.5;
+data=GendataLM(n,p,rho,error="gaussian")
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)
@@ -45,8 +45,8 @@ A1=CSIS(X,Y,n/log(n));A1
 library(survival)
 n=100;
 p=200;
-pho=0.5;
-data=GendataAFT(n,p,pho)
+rho=0.5;
+data=GendataCox(n,p,rho)
 data=cbind(data[[1]],data[[2]],data[[3]])
 colnames(data)[ncol(data)]=c("status");
 colnames(data)[(ncol(data)-1)]=c("time");

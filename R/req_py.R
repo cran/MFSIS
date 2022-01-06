@@ -6,7 +6,6 @@
 #' @usage req_py()
 #'
 #' @import reticulate
-#' @import pkgdown
 #' @importFrom crayon cyan
 #' @importFrom crayon blue
 #' @import cli

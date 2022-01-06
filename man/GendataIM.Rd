@@ -36,8 +36,8 @@ This simulated example comes from Section 4.2 introduced by Pan et al.(2019)
 \examples{
 n=100;
 p=200;
-pho=0.5;
-data=GendataIM(n,p,pho)
+rho=0.5;
+data=GendataIM(n,p,rho)
 
 }
 \references{

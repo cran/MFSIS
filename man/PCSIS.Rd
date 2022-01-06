@@ -30,10 +30,10 @@ have_numpy=reticulate::py_module_available("numpy")
 if (have_numpy){
 req_py()
 library(MFSIS)
-n=10;
-p=20;
-pho=0.5;
-data=GendataLM(n,p,pho)
+n=20;
+p=50;
+rho=0.5;
+data=GendataLM(n,p,rho,error="gaussian")
 data=cbind(data[[1]],data[[2]])
 colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 data=as.matrix(data)

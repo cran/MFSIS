@@ -10,12 +10,14 @@
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.
 #' @param Y The response vector of dimension n * 1.
 #' @param nsis Number of predictors recruited by PCSIS. The default is n/log(n).
-#'
 #' @return the labels of first nsis largest active set of all predictors
 #'
 #' @import reticulate
 #' @importFrom reticulate py_config
 #' @importFrom reticulate source_python
+#' @import foreach
+#' @import parallel
+#' @import doParallel
 #'
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
@@ -25,10 +27,10 @@
 #'if (have_numpy){
 #' req_py()
 #' library(MFSIS)
-#' n=10;
-#' p=20;
-#' pho=0.5;
-#' data=GendataLM(n,p,pho)
+#' n=20;
+#' p=50;
+#' rho=0.5;
+#' data=GendataLM(n,p,rho,error="gaussian")
 #' data=cbind(data[[1]],data[[2]])
 #' colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
 #' data=as.matrix(data)
@@ -58,22 +60,98 @@ PCSIS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
     stop("PCSIS can not implemented with object  of Surv")
   }
   req_py()
-  n=dim(X)[1];
-  p=dim(X)[2];
   reticulate::py_config()
   py_path=system.file("python", "PCSIS.py", package="MFSIS")
   reticulate::source_python(py_path,envir=globalenv())
-  corr=c();
-  get_arccos_1d=NULL;
-  projection_corr_1d=NULL;
-  A_y=get_arccos_1d(Y)
-  for (j in 1:p){
-    A_x=get_arccos_1d(X[,j])
-    corr[j]=projection_corr_1d(A_x,A_y,n);
+  n=dim(X)[1];
+  p=dim(X)[2];
+  A_y=get_arccos(Y)
+  if (n*p<=100000){
+    result=vector(mode="numeric",length=p)
+    for (j in 1:p){
+      result[j]=Cor(X[,j],A_y,n)
+    }
+  }else{
+    # Real physical cores in the computer
+    cores=detectCores(logical=FALSE)
+    cl=makeCluster(cores)
+    registerDoParallel(cl,cores=cores)
+    j=NULL;
+    result=foreach::foreach(j=1:p, .combine='c',
+    .export=c("get_arccos","projection_corr"),
+    .packages=c("reticulate")) %dopar%
+      Cor(X[,j],A_y,n)
+    stopImplicitCluster()
+    stopCluster(cl)
   }
-  A=order(corr,decreasing=TRUE)
+  A=order(result,decreasing=TRUE)
   return (A[1:nsis])
 }
+
+
+
+
+#' Arccos function
+#'
+#' This is a function to get a arccos value based on projection correlation from the Python language.
+#'
+#' @param X The design matrix of dimensions n * p. Each row is an observation vector.
+#'
+#' @import reticulate
+#' @importFrom reticulate py_config
+#' @importFrom reticulate source_python
+#' @export
+#' @return the arccos value
+#'
+#'
+get_arccos=function(X){
+  get_arccos_1d=NULL;
+  py_path=system.file("python", "PCSIS.py", package="MFSIS")
+  reticulate::source_python(py_path,envir=globalenv())
+  A_x=get_arccos_1d(X);
+  return (A_x)
+}
+
+
+#' Projection correlation function
+#'
+#' Projection correlation between X[,j] and Y from the Python language
+#'
+#' @param A_x  The arccos value about X
+#' @param A_y  The arccos value about Y
+#' @param n    The sample size
+#' @import reticulate
+#' @importFrom reticulate py_config
+#' @importFrom reticulate source_python
+#' @export
+#' @return the projection correlation
+#'
+#'
+projection_corr=function(A_x,A_y,n){
+  projection_corr_1d=NULL;
+  py_path=system.file("python", "PCSIS.py", package="MFSIS")
+  reticulate::source_python(py_path,envir=globalenv())
+  corr=projection_corr_1d(A_x,A_y,n);
+  return(corr)
+}
+
+
+#' Parallel function
+#' This is a parallel function about the projection correlation.
+#'
+#' @param Xj Each column from design matrix of dimensions n * p
+#' @param A_y The arccos value about Y
+#' @param n The sample size
+#'
+#' @return the projection correlation between Xj and A_y
+#' @export
+#'
+Cor=function(Xj,A_y,n){
+  A_x=get_arccos(Xj)
+  corr=projection_corr(A_x,A_y,n);
+  return (corr)
+}
+
 
 
 

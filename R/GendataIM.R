@@ -28,8 +28,8 @@
 #' @examples
 #' n=100;
 #' p=200;
-#' pho=0.5;
-#' data=GendataIM(n,p,pho)
+#' rho=0.5;
+#' data=GendataIM(n,p,rho)
 #'
 #' @references
 #'
@@ -41,18 +41,20 @@ GendataIM <- function(n,p,rho,
   sig=rho^abs(row(sig)-col(sig));
   diag(sig)<-rep(1,p);
   X=mvrnorm(n,rep(0,p),sig);
+  if (p<21){
+    stop("The dimension p must be greater than 20")
+  }
   if (order<2 | order>5){
     stop("The parameter order can be implemented between 2 to 5")
   }
   if (order==2){
-    Y=2*X[,1]*X[,2]+2*X[,3]+2*X[,4]+2*X[,5]+rnorm(n)
+    Y=2*X[,1]*X[,5]+2*X[,10]+2*X[,15]+2*X[,20]+rnorm(n)
   }else if (order==3){
-    Y=2*X[,1]*X[,2]*X[,3]+2*X[,4]+2*X[,5]+rnorm(n)
+    Y=2*X[,1]*X[,5]*X[,10]+2*X[,15]+2*X[,20]+rnorm(n)
   }else if (order==4){
-    Y=2*X[,1]*X[,2]*X[,3]*X[,4]+2*X[,5]+rnorm(n)
-  }
-  else if (order==5){
-    Y=2*X[,1]*X[,2]*X[,3]*X[,4]*X[,5]+rnorm(n)
+    Y=2*X[,1]*X[,5]*X[,10]*X[,15]+2*X[,20]+rnorm(n)
+  }else if (order==5){
+    Y=2*X[,1]*X[,5]*X[,10]*X[,15]*X[,20]+rnorm(n)
   }
   return(list(X=X,Y=Y));
 }

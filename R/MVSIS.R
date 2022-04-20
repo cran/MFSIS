@@ -39,7 +39,7 @@ MVSIS=function(X,Y,nsis) {
     stop("The input vector or matrix cannot have NA!")
   }
   if (inherits(Y,"Surv")) {
-    stop("SIRS can not implemented with object  of Surv")
+    stop("SIRS can not implemented with object of Surv")
   }
   Fk<-function(X0,x) {
     # Returns the estimated value of F(X0) = P(X <= X0), specifically the proportion

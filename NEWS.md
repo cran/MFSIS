@@ -10,3 +10,7 @@ Revised some simulation functions and update some parameters
 
 Add more simulation functions and update the overall code architecture and make this package easy to use
 
+# MFSIS 0.1.3
+
+Revised some simulation and add three screening procedures (PSIS, CAS and CI-SIS) for high dimensional categorical data.
+

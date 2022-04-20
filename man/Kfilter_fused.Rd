@@ -33,7 +33,7 @@ Y=data[,ncol(data)];
 A1=Kfilter_fused(X,Y,n/log(n));A1
 
 ##Scenario 2  generate continuous response data
-n=100;
+n=50;
 p=200;
 rho=0.5;
 data=GendataLM(n,p,rho,error="gaussian")

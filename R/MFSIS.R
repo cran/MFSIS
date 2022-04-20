@@ -10,14 +10,16 @@
 #'PC-Screen (Liu et al. (2020) <doi:10.1080/01621459.2020.1783274>),
 #'WLS (Zhong et al.(2021) <doi:10.1080/01621459.2021.1918554>),
 #'Kfilter (Mai and Zou (2015) <doi:10.1214/14-AOS1303>),
-#'MVSIS (Cui et al. (2015) <doi:10.1080/01621459.2014.920256>)
-#'and CSIS.
+#'MVSIS (Cui et al. (2015) <doi:10.1080/01621459.2014.920256>),
+#'PSIS (Pan et al. (2016) <doi:10.1080/01621459.2014.998760>),
+#'CAS (Xie et al. (2020) <doi:101080/0162145920191573734>),
+#'CSIS and CI-SIS.
 #'
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.
 #' @param Y The response vector of dimension n * 1.
 #' @param nsis Number of predictors recruited by the screening method. The default is n/log(n).
 #' @param method The method that you choose to perform screening procedure.
-#' method=c("SIS", "SIRS", "DCSIS", "MDCSIS", "CSIS", "PCSIS", "BcorSIS", "WLS", "MVSIS", "Kfilter").
+#' method=c("SIS", "SIRS", "DCSIS", "MDCSIS", "CSIS", "PCSIS", "BcorSIS", "WLS", "MVSIS", "Kfilter","PSIS","CAS","CISIS").
 #' If you want to know more information about this method, please use command "help(method)" for detail information.
 #'
 #' @return the labels of first nsis largest active set of all predictors
@@ -57,6 +59,12 @@ MFSIS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1]),method=c("SIS","SIRS","DCSIS"
     A=PCSIS(X,Y,nsis);
   }else if (method=="Kfilter"){ ##NO.10
     A=Kfilter(X,Y,nsis);
+  }else if (method=="PSIS"){   ##NO.11
+    A=PSIS(X,Y,nsis);
+  }else if (method=="CAS"){    ##NO.12
+    A=CAS(X,Y,nsis);
+  }else if (method=="CISIS"){  ##NO.13
+    A=CISIS(X,Y,nsis);
   }else{
     stop("The author has not implemented this method yet. Please email the author!")
   }

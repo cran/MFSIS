@@ -14,7 +14,10 @@ Bcor-SIS (Pan et al. (2019) [doi:10.1080/01621459.2018.1462709]),
 PC-Screen (Liu et al. (2020) [doi:10.1080/01621459.2020.1783274]), 
 WLS (Zhong et al.(2021) [doi:10.1080/01621459.2021.1918554]), 
 Kfilter (Mai and Zou (2015) [doi:10.1214/14-AOS1303]),
-MVSIS (Cui et al. (2015) [doi:10.1080/01621459.2014.920256]) and CSIS.
+MVSIS (Cui et al. (2015) [doi:10.1080/01621459.2014.920256]),
+PSIS (Pan et al. (2016) [doi:10.1080/01621459.2014.998760]),
+CAS (Xie et al. (2020) [doi:101080/01621459.2019.1573734]),
+CSIS and CI-SIS.
 ```{r install}
 install.packages("MFSIS")
 ```

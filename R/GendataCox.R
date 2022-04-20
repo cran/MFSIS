@@ -26,6 +26,7 @@
 #' @import MASS
 #' @importFrom MASS mvrnorm
 #' @importFrom stats rexp
+#' @importFrom stats runif
 #'
 #' @export
 #' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
@@ -44,8 +45,8 @@ GendataCox <- function(n,p,rho,
    sig=rho^abs(row(sig)-col(sig));
    diag(sig)<-rep(1,p);
    X=mvrnorm(n,rep(0,p),sig);
-   myrates=exp(X%*%beta)
-   Sur=rexp(n,myrates);
+   myrates=diag(log(1/runif(n)))%*%exp(-X%*%beta)
+   Sur=myrates;
    CT=rexp(n,lambda)
    time=pmin(Sur,CT);
    status=as.numeric(Sur<=CT)

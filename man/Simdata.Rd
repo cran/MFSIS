@@ -15,8 +15,8 @@ Simdata(
   lambda = 0.1,
   order = 2,
   type = c("a", "b"),
-  model = c("linear", "nonlinear", "binomial", "poisson", "classification", "survival",
-    "interaction", "group", "multivariate")
+  model = c("linear", "nonlinear", "binomial", "poisson", "classification", "Cox",
+    "interaction", "group", "multivariate", "AFT")
 )
 }
 \arguments{

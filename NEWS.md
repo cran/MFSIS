@@ -14,3 +14,7 @@ Add more simulation functions and update the overall code architecture and make 
 
 Revised some simulation and add three screening procedures (PSIS, CAS and CI-SIS) for high dimensional categorical data.
 
+# MFSIS 0.2.0
+
+Updated some methods and fixed some bugs
+

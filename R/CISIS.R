@@ -25,6 +25,9 @@
 #'Y=data[,ncol(data)];
 #'A=CISIS(X,Y,n/log(n));A
 #'
+#' @references
+#'
+#' Cheng X, Wang H. A Generic Model-Free Feature Screening Procedure for Ultra-high Dimensional Data with Categorical Response[J]. Computer Methods and Programs in Biomedicine, 2022: 107269.
 CISIS=function(X,Y,nsis) {
   if (dim(X)[1]!=length(Y)) {
     stop("X and Y should have same number of rows!")

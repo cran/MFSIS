@@ -57,7 +57,7 @@ Simdata <- function(n,p,rho,
         order=2,
         type=c("a","b"),
         model=c("linear","nonlinear","binomial","poisson","classification",
-                "survival","interaction","group","multivariate"))
+                "Cox","interaction","group","multivariate","AFT"))
 {
 if (model=="linear"){
   data=GendataLM(n,p,rho,beta,error);     ##NO.1

@@ -40,7 +40,8 @@ Kfilter (Mai and Zou (2015) <doi:10.1214/14-AOS1303>),
 MVSIS (Cui et al. (2015) <doi:10.1080/01621459.2014.920256>),
 PSIS (Pan et al. (2016) <doi:10.1080/01621459.2014.998760>),
 CAS (Xie et al. (2020) <doi:101080/0162145920191573734>),
-CSIS and CI-SIS.
+CI-SIS (Cheng and Wang. (2022) <doi:10.1016/j.cmpb.2022.107269>)
+and CSIS.
 }
 \examples{
 

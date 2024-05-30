@@ -2,7 +2,7 @@
 #'
 #' This function helps you quickly generate simulation data based on the AFT model.
 #' You just need to input the sample and dimension of the data
-#' you want to generate and the covariance parameter pho.
+#' you want to generate and the covariance parameter rho.
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
 #' number of rows in the dataset to be simulated, because it is assumed that each
@@ -32,41 +32,33 @@
 #' @importFrom stats rcauchy
 #'
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
-#' n=100;
-#' p=200;
-#' rho=0.5;
-#' data=GendataAFT(n,p,rho)
+#' n <- 100
+#' p <- 200
+#' rho <- 0.5
+#' data <- GendataAFT(n, p, rho)
 #'
 #' @references
 #' Wei LJ (1992). “The accelerated failure time model: a useful alternative to the Cox regression model in survival analysis.” Statistics in medicine, 11(14-15), 1871–1879.
-GendataAFT <- function(n,p,rho,
-    beta=c(rep(1,5),rep(0,p-5)),lambda=0.1,
-    error="gaussian")# n sample size; p dimension size.
- {
-   sig=matrix(0,p,p);
-   sig=rho^abs(row(sig)-col(sig));
-   diag(sig)<-rep(1,p);
-   X=mvrnorm(n,rep(0,p),sig);
-   if (error=="gaussian"){
-     myrates=exp(X%*%beta+rnorm(n))
-   }else if (error=="t"){
-     myrates=exp(X%*%beta+rt(n,2))
-   }else if (error=="cauchy"){
-     myrates=exp(X%*%beta+rcauchy(n))
-   }
-   Sur=myrates;
-   CT=rexp(n,lambda)
-   time=pmin(Sur,CT);
-   status=as.numeric(Sur<=CT)
-   return(list(X=X,time=time,status=status));
+GendataAFT <- function(n, p, rho,
+                       beta = c(rep(1, 5), rep(0, p - 5)), lambda = 0.1,
+                       error = "gaussian") # n sample size; p dimension size.
+{
+  sig <- matrix(0, p, p)
+  sig <- rho^abs(row(sig) - col(sig))
+  diag(sig) <- rep(1, p)
+  X <- mvrnorm(n, rep(0, p), sig)
+  if (error == "gaussian") {
+    myrates <- exp(X %*% beta + rnorm(n))
+  } else if (error == "t") {
+    myrates <- exp(X %*% beta + rt(n, 2))
+  } else if (error == "cauchy") {
+    myrates <- exp(X %*% beta + rcauchy(n))
+  }
+  Sur <- myrates
+  CT <- rexp(n, lambda)
+  time <- pmin(Sur, CT)
+  status <- as.numeric(Sur <= CT)
+  return(list(X = X, time = time, status = status))
 }
-
-
-
-
-
-
-
-

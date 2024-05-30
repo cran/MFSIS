@@ -23,21 +23,22 @@ This enables us to use the conditional distribution function to construct a new 
 }
 \examples{
 
-n=100;
-p=200;
-rho=0.5;
-data=GendataLGM(n,p,rho)
-data=cbind(data[[1]],data[[2]])
-colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-data=as.matrix(data)
-X=data[,1:(ncol(data)-1)];
-Y=data[,ncol(data)];
-A=MVSIS(X,Y,n/log(n));A
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataLGM(n, p, rho)
+data <- cbind(data[[1]], data[[2]])
+colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+data <- as.matrix(data)
+X <- data[, 1:(ncol(data) - 1)]
+Y <- data[, ncol(data)]
+A <- MVSIS(X, Y, n / log(n))
+A
 
 }
 \references{
 Cui, H., Li, R., & Zhong, W. (2015). Model-free feature screening for ultrahigh dimensional discriminant analysis. Journal of the American Statistical Association, 110(510), 630-641.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

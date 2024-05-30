@@ -30,19 +30,19 @@ the list of your simulation data
 \description{
 This function helps you quickly generate simulation data based on transformation model.
 You just need to input the sample and dimension of the data
-you want to generate and the covariance parameter pho.
+you want to generate and the covariance parameter rho.
 This simulated example comes from Section 4.2 introduced by Pan et al.(2019)
 }
 \examples{
-n=100;
-p=200;
-rho=0.5;
-data=GendataIM(n,p,rho)
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataIM(n, p, rho)
 
 }
 \references{
 Pan, W., X. Wang, W. Xiao, and H. Zhu (2019). A generic sure independence screening procedure. Journal of the American Statistical Association 114(526), 928–937.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

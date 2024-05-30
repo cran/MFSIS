@@ -20,22 +20,23 @@ the labels of first nsis largest active set of all predictors
 A new metric, the so-called martingale difference correlation,
 to measure the departure of conditional mean independence between a scalar response variable V and a vector predictor variable U.
 Our metric is a natural extension of distance correlation proposed by Szekely, Rizzo, and Bahirov(2007),
-which is used to measure the dependence between ´ V and U. The martingale difference
+which is used to measure the dependence between V and U. The martingale difference
 correlation and its empirical counterpart inherit a number of desirable features of distance correlation and sample distance correlation,
 such as algebraic simplicity and elegant theoretical properties.
 }
 \examples{
 
-n=100;
-p=200;
-rho=0.5;
-data=GendataLM(n,p,rho,error="gaussian")
-data=cbind(data[[1]],data[[2]])
-colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-data=as.matrix(data)
-X=data[,1:(ncol(data)-1)];
-Y=data[,ncol(data)];
-A=MDCSIS(X,Y,n/log(n));A
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataLM(n, p, rho, error = "gaussian")
+data <- cbind(data[[1]], data[[2]])
+colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+data <- as.matrix(data)
+X <- data[, 1:(ncol(data) - 1)]
+Y <- data[, ncol(data)]
+A <- MDCSIS(X, Y, n / log(n))
+A
 
 }
 \references{
@@ -44,5 +45,5 @@ Szekely, G. J., M. L. Rizzo, and N. K. Bakirov (2007). Measuring and testing dep
 Shao, X. and J. Zhang (2014). Martingale difference correlation and its use in high-dimensional variable screening. Journal of the American Statistical Association 109(507),1302–1318.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

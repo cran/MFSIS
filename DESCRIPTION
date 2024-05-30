@@ -1,10 +1,10 @@
 Package: MFSIS
 Type: Package
-Title: Moder-Free Sure Independent Screening Procedures
-Version: 0.2.0
-Date: 2022-12-18
+Title: Model-Free Sure Independent Screening Procedures
+Version: 0.2.1
+Date: 2024-05-30
 Authors@R: c(
-              person("Xuewei", "Cheng", role = c("aut","cre"), email = "xwcheng@csu.edu.cn"),
+              person("Xuewei", "Cheng", role = c("aut","cre"), email = "xwcheng@hunnu.edu.cn"),
               person("Hong", "Wang", role = c("aut"), email = "wh@csu.edu.cn"),
               person("Liping", "Zhu", role = c("aut"), email = "zhu.liping@ruc.edu.cn"),
               person("Wei", "Zhong", role = c("aut"), email = "wzhong@xmu.edu.cn"),
@@ -15,7 +15,7 @@ Author: Xuewei Cheng [aut, cre],
   Liping Zhu [aut],
   Wei Zhong [aut],
   Hanpu Zhou [aut]
-Maintainer: Xuewei Cheng <xwcheng@csu.edu.cn>
+Maintainer: Xuewei Cheng <xwcheng@hunnu.edu.cn>
 Description: An implementation of popular screening methods that are commonly 
   employed in ultra-high and high dimensional data. Through this publicly 
   available package, we provide a unified framework to carry out model-free 
@@ -31,15 +31,16 @@ Description: An implementation of popular screening methods that are commonly
   MVSIS (Cui et al. (2015) <doi:10.1080/01621459.2014.920256>), 
   PSIS (Pan et al. (2016) <doi:10.1080/01621459.2014.998760>), 
   CAS (Xie et al. (2020) <doi:10.1080/01621459.2019.1573734>), 
-  CI-SIS (Cheng and Wang. (2022) <doi:10.1016/j.cmpb.2022.107269>)and CSIS.
+  CI-SIS (Cheng and Wang. (2023) <doi:10.1016/j.cmpb.2022.107269>) and 
+  CSIS (Cheng et al. (2023) <doi:10.1007/s00180-023-01399-5>).
 License: GPL (>= 2)
 SystemRequirements: Python (>= 3.8.0)
 Encoding: UTF-8
 Imports: survival, MASS, Ball, reticulate, stats, crayon, cli, dr,
-        foreach, parallel, doParallel, fs
-Suggests: knitr, SIS, glmnet, ncvreg, utils, pkgdown
+        foreach, parallel, doParallel
+Suggests: knitr, utils, pkgdown
 NeedsCompilation: no
 Repository: CRAN
-RoxygenNote: 7.2.3
-Packaged: 2022-12-18 08:00:19 UTC; d
-Date/Publication: 2022-12-18 16:40:10 UTC
+RoxygenNote: 7.3.1
+Packaged: 2024-05-30 04:24:10 UTC; ChengXuewei
+Date/Publication: 2024-05-30 07:20:07 UTC

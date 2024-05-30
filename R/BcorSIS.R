@@ -18,62 +18,59 @@
 #' @importFrom Ball bcorsis
 #' @importFrom survival Surv
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
 #'
-#'##Scenario 1  generate complete data
-#'n=100;
-#'p=200;
-#'rho=0.5;
-#'data=GendataLM(n,p,rho,error="gaussian")
-#'data=cbind(data[[1]],data[[2]])
-#'colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-#'data=as.matrix(data)
-#'X=data[,1:(ncol(data)-1)];
-#'Y=data[,ncol(data)];
-#'A1=BcorSIS(X,Y,n/log(n));A1
+#' ## Scenario 1  generate complete data
+#' n <- 100
+#' p <- 200
+#' rho <- 0.5
+#' data <- GendataLM(n, p, rho, error = "gaussian")
+#' data <- cbind(data[[1]], data[[2]])
+#' colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+#' data <- as.matrix(data)
+#' X <- data[, 1:(ncol(data) - 1)]
+#' Y <- data[, ncol(data)]
+#' A1 <- BcorSIS(X, Y, n / log(n))
+#' A1
 #'
-#'##Scenario 2  generate survival data
-#'library(survival)
-#'n=100;
-#'p=200;
-#'rho=0.5;
-#'data=GendataCox(n,p,rho)
-#'data=cbind(data[[1]],data[[2]],data[[3]])
-#'colnames(data)[ncol(data)]=c("status");
-#'colnames(data)[(ncol(data)-1)]=c("time");
-#'colnames(data)[(1:(ncol(data)-2))]=c(paste0("X",1:(ncol(data)-2)))
-#'data=as.matrix(data)
-#'X=data[,1:(ncol(data)-2)];
-#'Y=Surv(data[,(ncol(data)-1)],data[,ncol(data)]);
-#'A2=BcorSIS(X,Y,n/log(n));A2
+#' ## Scenario 2  generate survival data
+#' library(survival)
+#' n <- 100
+#' p <- 200
+#' rho <- 0.5
+#' data <- GendataCox(n, p, rho)
+#' data <- cbind(data[[1]], data[[2]], data[[3]])
+#' colnames(data)[ncol(data)] <- c("status")
+#' colnames(data)[(ncol(data) - 1)] <- c("time")
+#' colnames(data)[(1:(ncol(data) - 2))] <- c(paste0("X", 1:(ncol(data) - 2)))
+#' data <- as.matrix(data)
+#' X <- data[, 1:(ncol(data) - 2)]
+#' Y <- Surv(data[, (ncol(data) - 1)], data[, ncol(data)])
+#' A2 <- BcorSIS(X, Y, n / log(n))
+#' A2
 #' @references
 #'
 #' Pan, W., X. Wang, H. Zhang, H. Zhu, and J. Zhu (2020). Ball covariance: A generic measure of dependence in banach space. Journal of the American Statistical Association 115(529),307–317.
 #'
 #' Pan, W., X. Wang, W. Xiao, and H. Zhu (2019). A generic sure independence screening procedure. Journal of the American Statistical Association 114(526), 928–937.
-BcorSIS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
-  if (dim(X)[1]!=length(Y)) {
+BcorSIS <- function(X, Y, nsis = (dim(X)[1]) / log(dim(X)[1])) {
+  if (dim(X)[1] != length(Y)) {
     stop("X and Y should have same number of rows!")
   }
-  if (missing(X)|missing(Y)) {
+  if (missing(X) | missing(Y)) {
     stop("The data is missing!")
   }
-  if (TRUE%in%(is.na(X)|is.na(Y)|is.na(nsis))) {
+  if (TRUE %in% (is.na(X) | is.na(Y) | is.na(nsis))) {
     stop("The input vector or matrix cannot have NA!")
   }
-  p=dim(X)[2]; ##dimension
-  if (class(Y)==c("Surv")){
-    model=bcorsis(x=X,y=Y,method="survival",d=p)
-    A=model$ix
-  }else{
-    model=bcorsis(x=X,y=Y,method="standard",d=p)
-    A=model$ix
+  p <- dim(X)[2] ## dimension
+  if (class(Y) == c("Surv")) {
+    model <- bcorsis(x = X, y = Y, method = "survival", d = p)
+    A <- model$ix
+  } else {
+    model <- bcorsis(x = X, y = Y, method = "standard", d = p)
+    A <- model$ix
   }
-  return (A[1:nsis])
+  return(A[1:nsis])
 }
-
-
-
-
-

@@ -37,14 +37,14 @@ The simulation is based on the balanced scenarios in Example 3.1 of Cui et al.(2
 The simulated dataset has p numerical X-predictors and a categorical Y-response.
 }
 \examples{
-n=100;
-p=200;
-R=3;
-data=GendataLDA(n,p,R,error="gaussian",style="balanced")
+n <- 100
+p <- 200
+R <- 3
+data <- GendataLDA(n, p, R, error = "gaussian", style = "balanced")
 }
 \references{
 Cui, H., Li, R., & Zhong, W. (2015). Model-free feature screening for ultrahigh dimensional discriminant analysis. Journal of the American Statistical Association, 110(510), 630-641.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

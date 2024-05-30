@@ -2,7 +2,7 @@
 #'
 #' This function helps you quickly generate simulation data based on the Cox model.
 #' You just need to input the sample and dimension of the data
-#' you want to generate and the covariance parameter pho.
+#' you want to generate and the covariance parameter rho.
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
 #' number of rows in the dataset to be simulated, because it is assumed that each
@@ -29,34 +29,26 @@
 #' @importFrom stats runif
 #'
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
-#' n=100;
-#' p=200;
-#' rho=0.5;
-#' data=GendataCox(n,p,rho)
+#' n <- 100
+#' p <- 200
+#' rho <- 0.5
+#' data <- GendataCox(n, p, rho)
 #'
 #' @references
 #' Cox DR (1972). “Regression models and life-tables.” Journal of the Royal Statistical Society:Series B (Methodological), 34(2), 187–202.
-GendataCox <- function(n,p,rho,
-    beta=c(rep(1,5),rep(0,p-5)),lambda=0.1)# n sample size; p dimension size.
- {
-   sig=matrix(0,p,p);
-   sig=rho^abs(row(sig)-col(sig));
-   diag(sig)<-rep(1,p);
-   X=mvrnorm(n,rep(0,p),sig);
-   myrates=diag(log(1/runif(n)))%*%exp(-X%*%beta)
-   Sur=myrates;
-   CT=rexp(n,lambda)
-   time=pmin(Sur,CT);
-   status=as.numeric(Sur<=CT)
-   return(list(X=X,time=time,status=status));
+GendataCox <- function(n, p, rho,
+                       beta = c(rep(1, 5), rep(0, p - 5)), lambda = 0.1) # n sample size; p dimension size.
+{
+  sig <- matrix(0, p, p)
+  sig <- rho^abs(row(sig) - col(sig))
+  diag(sig) <- rep(1, p)
+  X <- mvrnorm(n, rep(0, p), sig)
+  myrates <- diag(log(1 / runif(n))) %*% exp(-X %*% beta)
+  Sur <- myrates
+  CT <- rexp(n, lambda)
+  time <- pmin(Sur, CT)
+  status <- as.numeric(Sur <= CT)
+  return(list(X = X, time = time, status = status))
 }
-
-
-
-
-
-
-
-

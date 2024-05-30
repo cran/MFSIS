@@ -23,16 +23,17 @@ DC-SIS can be used directly to screen grouped predictor variables and multivaria
 }
 \examples{
 
-n=100;
-p=200;
-rho=0.5;
-data=GendataLM(n,p,rho,error="gaussian")
-data=cbind(data[[1]],data[[2]])
-colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-data=as.matrix(data)
-X=data[,1:(ncol(data)-1)];
-Y=data[,ncol(data)];
-A=DCSIS(X,Y,n/log(n));A
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataLM(n, p, rho, error = "gaussian")
+data <- cbind(data[[1]], data[[2]])
+colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+data <- as.matrix(data)
+X <- data[, 1:(ncol(data) - 1)]
+Y <- data[, ncol(data)]
+A <- DCSIS(X, Y, n / log(n))
+A
 
 }
 \references{
@@ -41,5 +42,5 @@ Fan, J. and J. Lv (2008). Sure independence screening for ultrahigh dimensional 
 Li, R., W. Zhong, and L. Zhu (2012). Feature screening via distance correlation learning. Journal of the American Statistical Association 107(499), 1129–1139.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

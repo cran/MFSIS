@@ -10,7 +10,7 @@
 #'
 #' @return the labels of first nsis largest active set of all predictors
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
 #'
 #'n=100;

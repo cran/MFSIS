@@ -41,5 +41,5 @@ Mai, Q., & Zou, H. (2013). The Kolmogorov filter for variable screening in high-
 Mai, Q., & Zou, H. (2015). The fused Kolmogorov filter: A nonparametric model-free screening method. The Annals of Statistics, 43(4), 1471-1497.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

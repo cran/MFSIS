@@ -31,20 +31,20 @@ the list of your simulation data
 \description{
 This function helps you quickly generate simulation data based on poisson model.
 You just need to input the sample and dimension of the data
-you want to generate and the covariance parameter pho.
+you want to generate and the covariance parameter rho.
 The simulated examples based on poisson model are significant popular
 in the screening procedures, such as Model 1.f in Liu et al.(2020).
 }
 \examples{
-n=100;
-p=200;
-rho=0.5;
-data=GendataPM(n,p,rho)
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataPM(n, p, rho)
 
 }
 \references{
 Liu, W., Y. Ke, J. Liu, and R. Li (2020). Model-free feature screening and FDR control with knockoff features. Journal of the American Statistical Association, 1–16.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

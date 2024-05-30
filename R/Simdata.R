@@ -2,7 +2,7 @@
 #'
 #' This function helps you quickly generate simulation data.
 #' You just need to input the sample and dimension of the data
-#' you want to generate and the covariance parameter pho.
+#' you want to generate and the covariance parameter rho.
 #' The models is numerous.
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
@@ -39,53 +39,49 @@
 #' @importFrom stats rt
 #' @importFrom stats rcauchy
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
-#' n=100;
-#' p=200;
-#' rho=0.5;
-#' data=Simdata(n,p,rho,error="gaussian",model="linear")
+#' n <- 100
+#' p <- 200
+#' rho <- 0.5
+#' data <- Simdata(n, p, rho, error = "gaussian", model = "linear")
 #' @references
 #'
 #' Liu, W., Y. Ke, J. Liu, and R. Li (2020). Model-free feature screening and FDR control with knockoff features. Journal of the American Statistical Association, 1–16.
-Simdata <- function(n,p,rho,
-        beta=c(rep(1,5),rep(0,p-5)),
-        error=c("gaussian","t","cauchy"),
-        R=3,
-        style=c("balanced","unbalanced"),
-        lambda=0.1,
-        order=2,
-        type=c("a","b"),
-        model=c("linear","nonlinear","binomial","poisson","classification",
-                "Cox","interaction","group","multivariate","AFT"))
-{
-if (model=="linear"){
-  data=GendataLM(n,p,rho,beta,error);     ##NO.1
-  }else if (model=="nonlinear"){
-  data=GendataTM(n,p,rho,beta,error)      ##NO.2
-  }else if (model=="binomial"){
-  data=GendataLGM(n,p,rho,beta)           ##NO.3
-  }else if (model=="poisson"){
-    data=GendataPM(n,p,rho,beta)          ##NO.4
-  }else if (model=="classification"){
-    data=GendataLDA(n,p,R,error,style)    ##NO.5
-  }else if (model=="Cox"){
-    data=GendataCox(n,p,rho,beta,lambda)  ##NO.6
-  }else if (model=="interaction"){
-    data=GendataIM(n,p,rho,order)         ##NO.7
-  }else if (model=="group"){
-    data=GendataGP(n,p,rho,error)         ##NO.8
-  }else if (model=="multivariate"){
-    data=GendataMRM(n,p,rho,type)         ##NO.9
-  }else if (model=="AFT"){
-    data=GendataAFT(n,p,rho,beta,lambda,error)   ##NO.10
-  }else{
+Simdata <- function(n, p, rho,
+                    beta = c(rep(1, 5), rep(0, p - 5)),
+                    error = c("gaussian", "t", "cauchy"),
+                    R = 3,
+                    style = c("balanced", "unbalanced"),
+                    lambda = 0.1,
+                    order = 2,
+                    type = c("a", "b"),
+                    model = c(
+                      "linear", "nonlinear", "binomial", "poisson", "classification",
+                      "Cox", "interaction", "group", "multivariate", "AFT"
+                    )) {
+  if (model == "linear") {
+    data <- GendataLM(n, p, rho, beta, error) ## NO.1
+  } else if (model == "nonlinear") {
+    data <- GendataTM(n, p, rho, beta, error) ## NO.2
+  } else if (model == "binomial") {
+    data <- GendataLGM(n, p, rho, beta) ## NO.3
+  } else if (model == "poisson") {
+    data <- GendataPM(n, p, rho, beta) ## NO.4
+  } else if (model == "classification") {
+    data <- GendataLDA(n, p, R, error, style) ## NO.5
+  } else if (model == "Cox") {
+    data <- GendataCox(n, p, rho, beta, lambda) ## NO.6
+  } else if (model == "interaction") {
+    data <- GendataIM(n, p, rho, order) ## NO.7
+  } else if (model == "group") {
+    data <- GendataGP(n, p, rho, error) ## NO.8
+  } else if (model == "multivariate") {
+    data <- GendataMRM(n, p, rho, type) ## NO.9
+  } else if (model == "AFT") {
+    data <- GendataAFT(n, p, rho, beta, lambda, error) ## NO.10
+  } else {
     stop("The author has not implemented this model yet.")
   }
-  return (data)
+  return(data)
 }
-
-
-
-
-

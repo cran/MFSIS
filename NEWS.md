@@ -18,3 +18,7 @@ Revised some simulation and add three screening procedures (PSIS, CAS and CI-SIS
 
 Updated some methods and fixed some bugs
 
+# MFSIS 0.2.1
+
+Refined some codes and updated some methods.
+

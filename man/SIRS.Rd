@@ -25,21 +25,22 @@ huge number of candidate predictors but little information about the actual mode
 }
 \examples{
 
-n=100;
-p=200;
-rho=0.5;
-data=GendataLM(n,p,rho,error="gaussian")
-data=cbind(data[[1]],data[[2]])
-colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-data=as.matrix(data)
-X=data[,1:(ncol(data)-1)];
-Y=data[,ncol(data)];
-A=SIRS(X,Y,n/log(n));A
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataLM(n, p, rho, error = "gaussian")
+data <- cbind(data[[1]], data[[2]])
+colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+data <- as.matrix(data)
+X <- data[, 1:(ncol(data) - 1)]
+Y <- data[, ncol(data)]
+A <- SIRS(X, Y, n / log(n))
+A
 
 }
 \references{
 Zhu, L.-P., L. Li, R. Li, and L.-X. Zhu (2011). Model-free feature screening for ultrahigh-dimensional data. Journal of the American Statistical Association 106(496), 1464–1475.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

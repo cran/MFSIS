@@ -35,18 +35,18 @@ the list of your simulation data
 \description{
 This function helps you quickly generate simulation data based on the Cox model.
 You just need to input the sample and dimension of the data
-you want to generate and the covariance parameter pho.
+you want to generate and the covariance parameter rho.
 }
 \examples{
-n=100;
-p=200;
-rho=0.5;
-data=GendataCox(n,p,rho)
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataCox(n, p, rho)
 
 }
 \references{
 Cox DR (1972). “Regression models and life-tables.” Journal of the Royal Statistical Society:Series B (Methodological), 34(2), 187–202.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

@@ -39,19 +39,19 @@ the list of your simulation data
 \description{
 This function helps you quickly generate simulation data based on transformation model.
 You just need to input the sample and dimension of the data
-you want to generate and the covariance parameter pho.
+you want to generate and the covariance parameter rho.
 This simulated example comes from Example 3.a introduced by Zhu et al.(2011)
 }
 \examples{
-n=100;
-p=200;
-rho=0.5;
-data=GendataTM(n,p,rho,error="gaussian")
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataTM(n, p, rho, error = "gaussian")
 
 }
 \references{
 Zhu, L.-P., L. Li, R. Li, and L.-X. Zhu (2011). Model-free feature screening for ultrahigh-dimensional data. Journal of the American Statistical Association 106(496), 1464–1475.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

@@ -25,21 +25,22 @@ weighted leverage variable screening method by using both the left and right sin
 }
 \examples{
 
-n=100;
-p=200;
-rho=0.5;
-data=GendataLM(n,p,rho,error="gaussian")
-data=cbind(data[[1]],data[[2]])
-colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-data=as.matrix(data)
-X=data[,1:(ncol(data)-1)];
-Y=data[,ncol(data)];
-A=WLS(X,Y,n/log(n));A
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataLM(n, p, rho, error = "gaussian")
+data <- cbind(data[[1]], data[[2]])
+colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+data <- as.matrix(data)
+X <- data[, 1:(ncol(data) - 1)]
+Y <- data[, ncol(data)]
+A <- WLS(X, Y, n / log(n))
+A
 
 }
 \references{
 Zhong, W., Liu, Y., & Zeng, P. (2021). A Model-free Variable Screening Method Based on Leverage Score. Journal of the American Statistical Association, (just-accepted), 1-36.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

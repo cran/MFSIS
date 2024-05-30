@@ -23,21 +23,22 @@ The performance is quite robust in the presence of heavy-tailed distributions, e
 }
 \examples{
 
-n=100;
-p=200;
-rho=0.5;
-data=GendataLGM(n,p,rho)
-data=cbind(data[[1]],data[[2]])
-colnames(data)[1:ncol(data)]=c(paste0("X",1:(ncol(data)-1)),"Y")
-data=as.matrix(data)
-X=data[,1:(ncol(data)-1)];
-Y=data[,ncol(data)];
-A=CISIS(X,Y,n/log(n));A
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataLGM(n, p, rho)
+data <- cbind(data[[1]], data[[2]])
+colnames(data)[1:ncol(data)] <- c(paste0("X", 1:(ncol(data) - 1)), "Y")
+data <- as.matrix(data)
+X <- data[, 1:(ncol(data) - 1)]
+Y <- data[, ncol(data)]
+A <- CISIS(X, Y, n / log(n))
+A
 
 }
 \references{
-Cheng X, Wang H. A Generic Model-Free Feature Screening Procedure for Ultra-high Dimensional Data with Categorical Response[J]. Computer Methods and Programs in Biomedicine, 2022: 107269.
+Cheng X, Wang H. A generic model-free feature screening procedure for ultra-high dimensional data with categorical response[J]. Computer Methods and Programs in Biomedicine, 2023, 229: 107269.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

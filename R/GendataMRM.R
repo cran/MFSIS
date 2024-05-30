@@ -2,7 +2,7 @@
 #'
 #' This function helps you quickly generate simulation data based on transformation model.
 #' You just need to input the sample and dimension of the data
-#' you want to generate and the covariance parameter pho.
+#' you want to generate and the covariance parameter rho.
 #' This simulated example comes from Example 3 introduced by Li et al.(2020)
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
@@ -25,55 +25,50 @@
 #' @importFrom MASS mvrnorm
 #' @importFrom stats rnorm
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
-#' n=100;
-#' p=200;
-#' rho=0.5;
-#' data=GendataMRM(n,p,rho,type="a")
+#' n <- 100
+#' p <- 200
+#' rho <- 0.5
+#' data <- GendataMRM(n, p, rho, type = "a")
 #'
 #' @references
 #'
 #' Liu, W., Y. Ke, J. Liu, and R. Li (2020). Model-free feature screening and FDR control with knockoff features. Journal of the American Statistical Association, 1–16.
-GendataMRM <- function(n,p,rho,
-      type=c("a","b"))# n sample size; p dimension size.
+GendataMRM <- function(n, p, rho,
+                       type = c("a", "b")) # n sample size; p dimension size.
 {
-  sig1=matrix(0,p,p);
-  sig1=rho^abs(row(sig1)-col(sig1));
-  diag(sig1)=rep(1,p);
-  X=mvrnorm(n,rep(0,p),sig1);
-  if (type!="a" & type!="b"){
+  sig1 <- matrix(0, p, p)
+  sig1 <- rho^abs(row(sig1) - col(sig1))
+  diag(sig1) <- rep(1, p)
+  X <- mvrnorm(n, rep(0, p), sig1)
+  if (type != "a" & type != "b") {
     stop("The type can be implemented both a and b ")
   }
-  if (type=="a"){
-    Y=matrix(0,n,2)
-    for (i in 1:n){
-      mu1=exp(2*(X[i,1]+X[i,2]));
-      mu2=X[i,3]+X[i,4]+X[i,5];
-      sig2=matrix(0,2,2);
-      cita=2*X[i,1]+2*X[i,2]+2*X[i,3]+2*X[i,4]+2*X[i,5]
-      sig2[1,2]=sin(cita)
-      sig2[2,1]=sig2[1,2];
-      diag(sig2)=rep(1,2);
-      Y[i,]=mvrnorm(1,c(mu1,mu2),sig2);
+  if (type == "a") {
+    Y <- matrix(0, n, 2)
+    for (i in 1:n) {
+      mu1 <- exp(2 * (X[i, 1] + X[i, 2]))
+      mu2 <- X[i, 3] + X[i, 4] + X[i, 5]
+      sig2 <- matrix(0, 2, 2)
+      cita <- 2 * X[i, 1] + 2 * X[i, 2] + 2 * X[i, 3] + 2 * X[i, 4] + 2 * X[i, 5]
+      sig2[1, 2] <- sin(cita)
+      sig2[2, 1] <- sig2[1, 2]
+      diag(sig2) <- rep(1, 2)
+      Y[i, ] <- mvrnorm(1, c(mu1, mu2), sig2)
     }
-  }else{
-    Y=matrix(0,n,2)
-    for (i in 1:n){
-      mu1=2*sin(pi*X[i,1]/2)+X[i,3]+exp(1+X[i,5]);
-      mu2=1/X[i,2]+X[i,4]
-      sig2=matrix(0,2,2);
-      cita=2*X[i,1]+2*X[i,2]+2*X[i,3]+2*X[i,4]+2*X[i,5]
-      sig2[1,2]=(exp(cita)-1)/(exp(cita)+1)
-      sig2[2,1]=sig2[1,2];
-      diag(sig2)=rep(1,2);
-      Y[i,]=mvrnorm(1,c(mu1,mu2),sig2);
+  } else {
+    Y <- matrix(0, n, 2)
+    for (i in 1:n) {
+      mu1 <- 2 * sin(pi * X[i, 1] / 2) + X[i, 3] + exp(1 + X[i, 5])
+      mu2 <- 1 / X[i, 2] + X[i, 4]
+      sig2 <- matrix(0, 2, 2)
+      cita <- 2 * X[i, 1] + 2 * X[i, 2] + 2 * X[i, 3] + 2 * X[i, 4] + 2 * X[i, 5]
+      sig2[1, 2] <- (exp(cita) - 1) / (exp(cita) + 1)
+      sig2[2, 1] <- sig2[1, 2]
+      diag(sig2) <- rep(1, 2)
+      Y[i, ] <- mvrnorm(1, c(mu1, mu2), sig2)
     }
   }
-  return(list(X=X,Y=Y));
+  return(list(X = X, Y = Y))
 }
-
-
-
-
-

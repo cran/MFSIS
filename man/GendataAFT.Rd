@@ -44,18 +44,18 @@ the list of your simulation data
 \description{
 This function helps you quickly generate simulation data based on the AFT model.
 You just need to input the sample and dimension of the data
-you want to generate and the covariance parameter pho.
+you want to generate and the covariance parameter rho.
 }
 \examples{
-n=100;
-p=200;
-rho=0.5;
-data=GendataAFT(n,p,rho)
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataAFT(n, p, rho)
 
 }
 \references{
 Wei LJ (1992). “The accelerated failure time model: a useful alternative to the Cox regression model in survival analysis.” Statistics in medicine, 11(14-15), 1871–1879.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

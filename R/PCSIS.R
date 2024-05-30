@@ -20,15 +20,14 @@
 #' @import doParallel
 #'
 #' @export
-#' @author Xuewei Cheng \email{xwcheng@csu.edu.cn}
+#' @author Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 #' @examples
 #'
-#'have_numpy=reticulate::py_module_available("numpy")
-#'if (have_numpy){
-#' req_py()
-#' library(MFSIS)
-#' n=20;
-#' p=50;
+#' # have_numpy=reticulate::py_module_available("numpy")
+#' # if (have_numpy){
+#' # req_py()
+#' n=100;
+#' p=200;
 #' rho=0.5;
 #' data=GendataLM(n,p,rho,error="gaussian")
 #' data=cbind(data[[1]],data[[2]])
@@ -36,10 +35,10 @@
 #' data=as.matrix(data)
 #' X=data[,1:(ncol(data)-1)];
 #' Y=data[,ncol(data)];
-#' A=PCSIS(X,Y,n/log(n));A
-#'}else{
-#'    print('You should have the Python testing environment!')
-#'}
+#' # A=PCSIS(X,Y,n/log(n));A
+#' # }else{
+#' #    print('You should have the Python testing environment!')
+#' #}
 #'
 #' @references
 #'
@@ -87,8 +86,6 @@ PCSIS=function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
   A=order(result,decreasing=TRUE)
   return (A[1:nsis])
 }
-
-
 
 
 #' Arccos function

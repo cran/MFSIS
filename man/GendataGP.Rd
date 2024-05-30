@@ -34,19 +34,19 @@ analysis of variance (ANOVA) problem, where each factor may have several
 levels and can be expressed through a group of dummy variables.
 This function helps you quickly generate simulation data with group predictors.
 You just need to input the sample and dimension of the data
-you want to generate and the covariance parameter pho.
+you want to generate and the covariance parameter rho.
 This simulated example comes from Example 2 introduced by Li et al.(2012)
 }
 \examples{
-n=100;
-p=200;
-pho=0.5;
-data=GendataGP(n,p,pho,"gaussian")
+n <- 100
+p <- 200
+rho <- 0.5
+data <- GendataGP(n, p, rho, "gaussian")
 
 }
 \references{
 Li, R., W. Zhong, and L. Zhu (2012). Feature screening via distance correlation learning. Journal of the American Statistical Association 107(499), 1129–1139.
 }
 \author{
-Xuewei Cheng \email{xwcheng@csu.edu.cn}
+Xuewei Cheng \email{xwcheng@hunnu.edu.cn}
 }

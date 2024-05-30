@@ -18,7 +18,7 @@ MVSIS (Cui et al. (2015) [doi:10.1080/01621459.2014.920256]),
 PSIS (Pan et al. (2016) [doi:10.1080/01621459.2014.998760]),
 CAS (Xie et al. (2020) [doi:101080/01621459.2019.1573734]),
 CI-SIS (Cheng and Wang (2022) [doi:10.1016/j.cmpb.2022.107269]),
-and CSIS.
+and CSIS (Cheng et al. (2023) [doi:10.1007/s00180-023-01399-5]).
 
 ## Installation
 ```{r install}

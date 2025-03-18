@@ -29,7 +29,7 @@
 #' Mai, Q., & Zou, H. (2013). The Kolmogorov filter for variable screening in high-dimensional binary classification. Biometrika, 100(1), 229-234.
 #'
 #' Mai, Q., & Zou, H. (2015). The fused Kolmogorov filter: A nonparametric model-free screening method. The Annals of Statistics, 43(4), 1471-1497.
-Kfilter<-function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
+Kfilter <- function(X,Y,nsis=(dim(X)[1])/log(dim(X)[1])){
   if (dim(X)[1]!=length(Y)) {
     stop("X and Y should have same number of rows!")
   }

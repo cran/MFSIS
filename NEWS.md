@@ -22,3 +22,7 @@ Updated some methods and fixed some bugs
 
 Refined some codes and updated some methods.
 
+# MFSIS 0.3.0
+
+Revised some codes.
+

@@ -3,7 +3,7 @@
 #' A generic nonparametric sure independence screening procedure,
 #' called BCor-SIS, on the basis of a recently developed universal
 #' dependence measure: Ball correlation.
-#' We show that the proposed procedure has strong screening consistency even
+#' This procedure has strong screening consistency even
 #' when the dimensionality is an exponential order of the sample size
 #' without imposing sub-exponential moment assumptions on the data.
 #'

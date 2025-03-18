@@ -60,10 +60,9 @@ type="b" is following the Model 3.b by Liu et al.(2020).}
 the list of your simulation data
 }
 \description{
-This function helps you quickly generate simulation data.
+This function is a unified framework that helps you quickly generate simulation data.
 You just need to input the sample and dimension of the data
 you want to generate and the covariance parameter rho.
-The models is numerous.
 }
 \examples{
 n <- 100

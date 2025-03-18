@@ -2,7 +2,7 @@
 #'
 #' A marginal feature screening procedure based on empirical conditional distribution function.
 #' The response variable is categorical in discriminant analysis.
-#' This enables us to use the conditional distribution function to construct a new index for feature screening.
+#' This method uses the conditional distribution function to construct a new index for feature screening.
 #'
 #'
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.

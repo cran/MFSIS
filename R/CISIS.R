@@ -2,7 +2,7 @@
 #'
 #' The proposed method is based on the concordance index which measures concordance between random vectors.
 #' A model-free and robust feature screening method for ultrahigh-dimensional categorical data.
-#' The performance is quite robust in the presence of heavy-tailed distributions, extremely unbalance responses, and category-adaptive data.
+#' The performance is quite robust in the presence of heavy-tailed error distributions, extremely unbalance responses, and category-adaptive data.
 #'
 #'
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.

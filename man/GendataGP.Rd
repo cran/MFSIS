@@ -29,7 +29,7 @@ the list of your simulation data
 }
 \description{
 In many regression problems, some predictors may be naturally grouped.
-The most common example that contains group variables is the multifactor
+The most common example that contains group variables is the multi-factor
 analysis of variance (ANOVA) problem, where each factor may have several
 levels and can be expressed through a group of dummy variables.
 This function helps you quickly generate simulation data with group predictors.

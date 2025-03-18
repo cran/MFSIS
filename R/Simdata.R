@@ -1,9 +1,8 @@
 #' Generate simulation data (The unified class framework to generate simulation data)
 #'
-#' This function helps you quickly generate simulation data.
+#' This function is a unified framework that helps you quickly generate simulation data.
 #' You just need to input the sample and dimension of the data
 #' you want to generate and the covariance parameter rho.
-#' The models is numerous.
 #'
 #' @param n Number of subjects in the dataset to be simulated. It will also equal to the
 #' number of rows in the dataset to be simulated, because it is assumed that each

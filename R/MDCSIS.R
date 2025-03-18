@@ -1,10 +1,11 @@
 #' Martingale Difference Correlation and Its Use in High-Dimensional Variable Screening
 #'
 #' A new metric, the so-called martingale difference correlation,
-#' to measure the departure of conditional mean independence between a scalar response variable V and a vector predictor variable U.
-#' Our metric is a natural extension of distance correlation proposed by Szekely, Rizzo, and Bahirov(2007),
-#' which is used to measure the dependence between V and U. The martingale difference
-#' correlation and its empirical counterpart inherit a number of desirable features of distance correlation and sample distance correlation,
+#' measure the departure of conditional mean independence between a scalar response variable V and a vector predictor variable U.
+#' This metric is a natural extension of distance correlation proposed by Szekely, Rizzo, and Bahirov(2007),
+#' which is used to measure the dependence between V and U. 
+#' The martingale difference correlation and its empirical counterpart inherit 
+#' a number of desirable features of distance correlation and sample distance correlation,
 #' such as algebraic simplicity and elegant theoretical properties.
 #'
 #' @param X The design matrix of dimensions n * p. Each row is an observation vector.
